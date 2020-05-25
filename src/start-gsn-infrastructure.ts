@@ -11,9 +11,9 @@ export async function startGSNInfrastructure(
   relayerOptions: {
     url: string;
     stakeEther: number;
-    unstakeDelaySecond: number;
     fundsEther: number;
-    quiet: boolean;
+    quiet?: boolean;
+    unstakeDelaySecond?: number;
   },
   recipientOptions: {
     address: string;
@@ -32,7 +32,7 @@ export async function startGSNInfrastructure(
     ethereumProviderlUrl,
     relayerOptions.url,
     relayHubAddress,
-    relayerOptions.quiet
+    relayerOptions.quiet || false
   );
 
   await registerRelay(
@@ -40,7 +40,7 @@ export async function startGSNInfrastructure(
       relayHubAddress,
       relayerUrl: relayerOptions.url,
       stakeEther: relayerOptions.stakeEther,
-      unstakeDelaySeconds: relayerOptions.unstakeDelaySecond,
+      unstakeDelaySeconds: relayerOptions.unstakeDelaySecond || 604800,
       fundsEther: relayerOptions.fundsEther,
     },
     signer
